@@ -1,0 +1,18 @@
+# CPU-friendly install. For Colab/Kaggle GPU, same file works.
+torch
+torchvision
+pillow
+numpy
+scikit-learn
+matplotlib
+pyyaml
+tqdm
+opencv-python-headless
+gradio>=4.0
+# optional: kagglehub for one-line dataset download on Colab/Kaggle
+kagglehub
+onnx
+onnxscript  # needed for torch.onnx.export on torch>=2.x
+# NOTE (Windows CPU): for a light CPU-only torch use:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+# then: pip install -r requirements.txt

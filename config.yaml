@@ -1,0 +1,39 @@
+# Beyin App: CPU-friendly brain MRI tumour classifier
+# MobileNetV2 + Grad-CAM + textual justification
+# Trainable on Colab / Kaggle free tier (T4, ~10 min), runs on CPU.
+
+model:
+  name: mobilenet_v2
+  num_classes: 4
+  class_names: ["glioma", "meningioma", "notumor", "pituitary"]
+  img_size: 128
+  pretrained: true
+  dropout: 0.2
+
+train:
+  batch_size: 32        # fits free T4 / CPU
+  epochs: 12
+  lr: 0.0003
+  weight_decay: 0.0001
+  num_workers: 2
+  val_split: 0.2
+  seed: 42
+  amp: true             # auto-mixed precision only if CUDA available
+  early_stop_patience: 4
+  out_dir: outputs
+
+data:
+  # Expected layout (ImageFolder):
+  # data/
+  #   glioma/*.jpg
+  #   meningioma/*.jpg
+  #   notumor/*.jpg
+  #   pituitary/*.jpg
+  # Or use scripts/download_dataset.py to fetch Kaggle set automatically.
+  root: data
+  kaggle_slug: masoudnickparvar/brain-tumor-mri-dataset
+
+infer:
+  checkpoint: outputs/best.pt
+  threshold_low: 0.55    # below this -> "uncertain, needs review"
+  threshold_high: 0.80   # above this -> "high confidence"

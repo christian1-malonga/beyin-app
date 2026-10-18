@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Gradio flag cache — may contain uploaded scans, never commit
+.gradio/
+
+# Datasets (download via scripts/download_dataset.py)
+data/
+
+# Training artifacts — only the trained demo checkpoint ships
+outputs_full/
+*.onnx
+*.pt
+!outputs/best.pt
